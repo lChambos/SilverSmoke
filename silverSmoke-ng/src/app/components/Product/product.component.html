@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>To-Do List</h1>
+  <form (ngSubmit)="addProduct()">
+    <input [(ngModel)]="newProductTitle" name="product" placeholder="New product" required />
+    <button type="submit">Add</button>
+  </form>
+  <ul>
+    <li *ngFor="let product of products">
+      <input type="checkbox" [(ngModel)]="product.isVisible" (change)="updateProduct(product)" />
+      {{ product.title }}
+      <button (click)="deleteProduct(product)">Delete</button>
+    </li>
+  </ul>
+</div>
+

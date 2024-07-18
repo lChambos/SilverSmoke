@@ -42,7 +42,7 @@ class ProductController extends AbstractController
 
         $data = json_decode($request->getContent(), true);
         $product->setTitle($data['title']);
-        $product->setCompleted($data['completed']);
+        $product->setPrice($data['price']);
         $em->flush();
 
         return $this->json($product);

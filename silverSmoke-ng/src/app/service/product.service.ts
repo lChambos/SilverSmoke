@@ -8,7 +8,7 @@ import {Product} from "../model/Product";
 })
 export class ProductService {
 
-  private url = 'http://localhost:8000/api/product';
+  private url = 'http://localhost:8000/api/products';
 
   constructor(private http: HttpClient) {}
 
@@ -28,7 +28,7 @@ export class ProductService {
     return this.http.put<Product>(`${this.url}/${id}`, null);
   }
 
-  deleteProduct(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.url}/${id}`);
+  deleteProduct(id: number): Observable<Product> {
+    return this.http.patch<Product>(`${this.url}/${id}/visibility`, null);
   }
 }

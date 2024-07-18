@@ -15,7 +15,7 @@ class ProductController extends AbstractController
     #[Route('/api/products', name: 'api_products', methods: ['GET'])]
     public function index(ProductRepository $taskRepository): JsonResponse
     {
-        $products = $taskRepository->findAll();
+        $products = $taskRepository->findVisibleProducts();
         return $this->json($products);
     }
 
@@ -60,5 +60,24 @@ class ProductController extends AbstractController
         $em->flush();
 
         return $this->json(['message' => 'Product deleted']);
+    }
+
+    #[Route('/api/products/{id}/visibility', name: 'api_product_visibility', methods: ['PATCH'])]
+    public function updateVisibility($id, Request $request, ProductRepository $productRepository, EntityManagerInterface $em): JsonResponse
+    {
+        $product = $productRepository->find($id);
+        if (!$product) {
+            return $this->json(['message' => 'Product not found'], 404);
+        }
+
+        $data = json_decode($request->getContent(), true);
+        if (!isset($data['isVisible'])) {
+            return $this->json(['message' => 'isVisible field is required'], 400);
+        }
+
+        $product->setVisble((bool)$data['isVisible']);
+        $em->flush();
+
+        return $this->json($product);
     }
 }

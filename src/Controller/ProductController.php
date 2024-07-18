@@ -19,7 +19,7 @@ class ProductController extends AbstractController
         return $this->json($products);
     }
 
-    #[Route('/api/tasks', name: 'api_product_create', methods: ['POST'])]
+    #[Route('/api/products', name: 'product_create', methods: ['POST'])]
     public function create(Request $request, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -32,7 +32,7 @@ class ProductController extends AbstractController
         return $this->json($product, 201);
     }
 
-    #[Route('/api/products/{id}', name: 'api_product_update', methods: ['PUT'])]
+    #[Route('/api/products/{id}', name: 'product_update', methods: ['PUT'])]
     public function update($id, Request $request, ProductRepository $productRepository, EntityManagerInterface $em): JsonResponse
     {
         $product = $productRepository->find($id);
@@ -48,7 +48,7 @@ class ProductController extends AbstractController
         return $this->json($product);
     }
 
-    #[Route('/api/products/{id}', name: 'api_product_delete', methods: ['DELETE'])]
+    #[Route('/api/products/{id}', name: 'product_delete', methods: ['DELETE'])]
     public function delete($id, ProductRepository $productRepository, EntityManagerInterface $em): JsonResponse
     {
         $product = $productRepository->find($id);
@@ -62,7 +62,7 @@ class ProductController extends AbstractController
         return $this->json(['message' => 'Product deleted']);
     }
 
-    #[Route('/api/products/{id}/visibility', name: 'api_product_visibility', methods: ['PATCH'])]
+    #[Route('/api/products/{id}/visibility', name: 'product_visibility', methods: ['PATCH'])]
     public function updateVisibility($id, Request $request, ProductRepository $productRepository, EntityManagerInterface $em): JsonResponse
     {
         $product = $productRepository->find($id);

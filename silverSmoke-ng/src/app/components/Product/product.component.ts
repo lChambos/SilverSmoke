@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from "../../service/product.service";
 import {Product} from "../../model/Product";
+import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-product',
@@ -11,24 +12,28 @@ export class ProductComponent implements OnInit {
 
   newProductTitle: string = '';
   products: Product[];
+  product: Product;
 
   constructor(private _productService: ProductService) { }
 
   ngOnInit(): void {
-    this.loadProducts();
+    this.getProducts();
   }
 
-  loadProducts(): void {
-    this._productService.getProducts().subscribe(products => {
-      this.products = products;
+  getProducts(): void {
+    this._productService.getProducts().subscribe(response => {
+      if (response.status === 200) {
+        this.products = response.body;
+      }
     });
   }
 
   addProduct(): void {
     if (this.newProductTitle.trim()) {
-      this._productService.createProduct(this.newProductTitle).subscribe(task => {
-        this.products.push(task);
-        this.newProductTitle = '';
+      this._productService.createProduct(this.newProductTitle).subscribe(product => {
+        if (product.status === 200) {
+          this.product = product.body;
+        }
       });
     }
   }
@@ -38,8 +43,10 @@ export class ProductComponent implements OnInit {
   }
 
   deleteProduct(product: Product): void {
-    this._productService.deleteProduct(product.id).subscribe(() => {
-      this.products = this.products.filter(p => p.id !== product.id);
+    this._productService.deleteProduct(product.id).subscribe(response => {
+      if(response.status === 204) {
+        console.log('Le produit est bien supprimé')
+      }
     });
   }
 

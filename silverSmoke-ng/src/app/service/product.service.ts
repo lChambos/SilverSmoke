@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Product} from "../model/Product";
 
@@ -12,23 +12,23 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.url);
+  getProducts(): Observable<HttpResponse<Product[]>> {
+    return this.http.get<Product[]>(this.url, {observe: 'response'});
   }
 
-  getProduct(id: number): Observable<Product> {
-    return this.http.get<Product>(`${this.url}/${id}`);
+  getProduct(id: number): Observable<HttpResponse<Product>> {
+    return this.http.get<Product>(`${this.url}/${id}`, {observe: 'response'});
   }
 
-  createProduct(title: string): Observable<Product> {
-    return this.http.post<Product>(this.url, { title });
+  createProduct(title: string): Observable<HttpResponse<Product>> {
+    return this.http.post<Product>(this.url, { title }, {observe: 'response'});
   }
 
-  updateProduct(product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.url}/${product.id}`, product);
+  updateProduct(product: Product): Observable<HttpResponse<Product>> {
+    return this.http.put<Product>(`${this.url}/${product.id}`, product, {observe: 'response'});
   }
 
-  deleteProduct(id: number): Observable<Product> {
-    return this.http.patch<Product>(`${this.url}/${id}/visibility`, null);
+  deleteProduct(id: number): Observable<HttpResponse<Product>> {
+    return this.http.patch<Product>(`${this.url}/${id}/visibility`, null, {observe: 'response'});
   }
 }

@@ -13,9 +13,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class ProductController extends AbstractController
 {
     #[Route('/api/products', name: 'api_products', methods: ['GET'])]
-    public function index(ProductRepository $taskRepository): JsonResponse
+    public function index(ProductRepository $productRepository): JsonResponse
     {
-        $products = $taskRepository->findVisibleProducts();
+        $products = $productRepository->findVisibleProducts();
         return $this->json($products);
     }
 

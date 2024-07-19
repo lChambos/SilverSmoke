@@ -7,10 +7,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import {ProductComponent} from "./components/Product/product.component";
 import {AppRoutingModule} from "./app-routing.module";
+import {ProductService} from "./service/product.service";
 
 @NgModule({
   declarations: [
@@ -27,8 +28,9 @@ import {AppRoutingModule} from "./app-routing.module";
         MatCheckboxModule,
         MatIconModule,
         AppRoutingModule,
+        HttpClientModule,
     ],
-  providers: [],
+  providers: [ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

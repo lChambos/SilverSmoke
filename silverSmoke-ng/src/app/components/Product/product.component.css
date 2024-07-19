@@ -1,0 +1,35 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.product-form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+mat-form-field {
+  flex: 1;
+  margin-right: 16px;
+}
+
+mat-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+mat-checkbox {
+  margin-right: 16px;
+}
+
+mat-icon-button {
+  margin-left: 16px;
+}

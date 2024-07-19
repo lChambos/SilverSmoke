@@ -1,15 +1,23 @@
 <div class="container">
-  <h1>To-Do List</h1>
-  <form (ngSubmit)="addProduct()">
-    <input [(ngModel)]="newProductTitle" name="product" placeholder="New product" required />
-    <button type="submit">Add</button>
+  <h1>Produits</h1>
+  <form (ngSubmit)="addProduct()" class="product-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Nouveau produit</mat-label>
+      <input matInput [(ngModel)]="newProductTitle" name="product" placeholder="New product" required />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Ajouter un Produit</button>
   </form>
-  <ul>
-    <li *ngFor="let product of products">
-      <input type="checkbox" [(ngModel)]="product.isVisible" (change)="updateProduct(product)" />
-      {{ product.title }}
-      <button (click)="deleteProduct(product)">Delete</button>
-    </li>
-  </ul>
+  <mat-list>
+    <mat-list-item *ngFor="let product of products">
+      <mat-checkbox [(ngModel)]="product.isVisible" (change)="updateProduct(product)"></mat-checkbox>
+      <span mat-line>{{ product.title }} ({{ product.count }})</span>
+      <button mat-icon-button color="warn" (click)="deleteProduct(product)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-raised-button color="accent" (click)="buyProduct(product)" [disabled]="product.count <= 0">
+        Acheter
+      </button>
+    </mat-list-item>
+  </mat-list>
 </div>
 

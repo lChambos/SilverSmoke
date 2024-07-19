@@ -34,13 +34,20 @@ export class ProductComponent implements OnInit {
   }
 
   updateProduct(product: Product): void {
-    this._productService.updateProduct(product.id).subscribe();
+    this._productService.updateProduct(product).subscribe();
   }
 
   deleteProduct(product: Product): void {
     this._productService.deleteProduct(product.id).subscribe(() => {
       this.products = this.products.filter(p => p.id !== product.id);
     });
+  }
+
+  buyProduct(product: Product) {
+    if (product.count > 0) {
+      product.count--;
+      this._productService.updateProduct(product).subscribe();
+    }
   }
 
 }
